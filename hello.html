@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Veekshith S Shetty | Silicon Verification Matrix</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap');
+
+html,
+body{
+margin:0;
+padding:0;
+background:#020205;
+overflow-x:hidden;
+font-family:'Orbitron',sans-serif;
+color:white;
+}
+
+.tech-mono{
+font-family:'Share Tech Mono', monospace;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+}
+
+.glass-panel{
+background:rgba(8,12,18,.6);
+backdrop-filter:blur(15px);
+border:1px solid rgba(16,185,129,.15);
+}
+
+.neon-glow{
+text-shadow:
+0 0 10px rgba(16,185,129,.8),
+0 0 20px rgba(16,185,129,.4),
+0 0 40px rgba(16,185,129,.2);
+}
+
+.neon-border{
+box-shadow:
+0 0 20px rgba(16,185,129,.15),
+inset 0 0 20px rgba(16,185,129,.05);
+}
+
+.grid-bg{
+background-image:
+linear-gradient(rgba(16,185,129,.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(16,185,129,.05) 1px, transparent 1px);
+background-size:50px 50px;
+}
+
+body.loading{
+overflow:hidden;
+}
+
+</style>
+
+</head>
+
+<body class="loading">
+
+<canvas id="threeCanvas"></canvas>
+
+<div id="bootScreen"
+class="fixed inset-0 bg-black z-[100] flex items-center justify-center">
+
+<div
+class="glass-panel rounded-xl p-8 max-w-2xl w-full mx-4 tech-mono">
+
+<h2
+class="text-emerald-400 text-xl font-bold mb-8 tracking-widest">
+
+SYSTEM INITIALIZATION
+
+</h2>
+
+<div class="space-y-4 text-sm">
+
+<p id="log1">
+> Loading SystemVerilog Packages...
+</p>
+
+<p id="log2" class="opacity-0">
+> Building UVM Environment...
+</p>
+
+<p id="log3" class="opacity-0">
+> Initializing AXI/AHB/APB Agents...
+</p>
+
+<p id="log4" class="opacity-0">
+> Constructing Scoreboards...
+</p>
+
+<p id="log5" class="opacity-0">
+> Launching Functional Coverage Engine...
+</p>
+
+<p id="log6"
+class="opacity-0 text-emerald-400 font-bold">
+
+> COVERAGE = 100%
+
+</p>
+
+</div>
+
+<div
+class="w-full bg-gray-800 h-2 mt-8 rounded-full overflow-hidden">
+
+<div id="progressBar"
+class="bg-emerald-500 h-full w-0"></div>
+
+</div>
+
+<button
+id="enterBtn"
+class="mt-8 w-full bg-emerald-500 text-black py-3 rounded-lg font-black opacity-0">
+
+INITIALIZE TESTBENCH
+
+</button>
+
+</div>
+
+</div>
+
+<header
+class="fixed top-0 left-0 w-full z-50 border-b border-emerald-500/10 backdrop-blur-md bg-black/30">
+
+<div
+class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+<div
+class="flex items-center gap-3 tech-mono">
+
+<div
+class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+
+<span class="text-emerald-400">
+DUT_STATE::RUNNING
+</span>
+
+</div>
+
+<div
+class="hidden md:flex gap-8 text-xs tech-mono">
+
+<span>ERRORS: 0</span>
+
+<span>COVERAGE: 100%</span>
+
+<span>BUS: APB / AHB / AXI</span>
+
+</div>
+
+</div>
+
+</header>
+
+<section
+class="min-h-screen flex items-center relative overflow-hidden grid-bg">
+
+<div
+class="max-w-7xl mx-auto px-8 md:px-20 relative z-10">
+
+<div
+class="inline-block px-4 py-2 glass-panel rounded-full tech-mono text-xs text-emerald-400">
+
+VEEKSHITH_S_SHETTY
+//
+DESIGN_VERIFICATION_ENGINEER
+
+</div>
+
+<h1
+id="heroTitle"
+class="text-6xl md:text-9xl font-black mt-8 opacity-0">
+
+SILICON
+
+<br>
+
+<span
+class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 neon-glow">
+
+VERIFIED
+
+</span>
+
+</h1>
+
+<p
+id="heroDesc"
+class="mt-8 text-xl max-w-3xl text-gray-400 opacity-0">
+
+Design Verification Engineer with experience in
+SystemVerilog, UVM, UVM-RAL, SVA, Python Automation,
+AI-assisted Verification, APB, AHB and AXI protocols.
+
+Building scalable verification environments for
+next-generation semiconductor products.
+
+</p>
+
+<div
+id="heroButtons"
+class="flex flex-wrap gap-4 mt-10 opacity-0">
+
+<a href="#experience"
+class="px-8 py-4 bg-emerald-500 text-black rounded-lg font-bold">
+
+VIEW EXPERIENCE
+
+</a>
+
+<a href="#projects"
+class="px-8 py-4 border border-emerald-500 text-emerald-400 rounded-lg">
+
+VIEW PROJECTS
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+//<!-- ========================================= -->
+<!-- CORE COMPETENCIES -->
+<!-- ========================================= -->
+
+<section id="skills"
+class="min-h-screen py-32 px-6 relative">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-20">
+
+<p class="tech-mono text-xs text-emerald-400 tracking-[4px]">
+ // ARCHITECTURE_DECODING_LAYER
+</p>
+
+<h2 class="text-5xl md:text-7xl font-black mt-4">
+
+CORE
+
+<span class="text-emerald-400 neon-glow">
+COMPETENCIES
+</span>
+
+</h2>
+
+</div>
+
+<div class="grid lg:grid-cols-3 gap-8">
+
+<!-- PROTOCOLS -->
+
+<div
+class="glass-panel neon-border rounded-3xl p-8 hover:-translate-y-3 transition-all duration-500 relative overflow-hidden">
+
+<div
+class="absolute -right-10 -bottom-10 text-[10rem] opacity-5 font-black">
+
+BUS
+
+</div>
+
+<div class="tech-mono text-emerald-400 text-xs mb-8">
+SUBSYSTEM_01
+</div>
+
+<h3
+class="text-3xl font-bold text-white mb-8">
+
+Protocols & Interfaces
+
+</h3>
+
+<div class="space-y-4">
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl flex justify-between">
+
+<span>AXI4</span>
+
+<span class="text-emerald-400 text-xs">
+ADVANCED
+</span>
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl flex justify-between">
+
+<span>AHB</span>
+
+<span class="text-emerald-400 text-xs">
+PIPELINED
+</span>
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl flex justify-between">
+
+<span>APB</span>
+
+<span class="text-emerald-400 text-xs">
+LOW_POWER
+</span>
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl flex justify-between">
+
+<span>DMA Verification</span>
+
+<span class="text-emerald-400 text-xs">
+SOC_LEVEL
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- UVM -->
+
+<div
+class="glass-panel neon-border rounded-3xl p-8 hover:-translate-y-3 transition-all duration-500 relative overflow-hidden">
+
+<div
+class="absolute -right-10 -bottom-10 text-[10rem] opacity-5 font-black">
+
+UVM
+
+</div>
+
+<div class="tech-mono text-emerald-400 text-xs mb-8">
+SUBSYSTEM_02
+</div>
+
+<h3
+class="text-3xl font-bold text-white mb-8">
+
+Verification Methodologies
+
+</h3>
+
+<div class="space-y-5 text-gray-300">
+
+<p>► UVM Architecture</p>
+
+<p>► UVM Factory Overrides</p>
+
+<p>► Config DB & Resource DB</p>
+
+<p>► UVM RAL Register Verification</p>
+
+<p>► Functional Coverage</p>
+
+<p>► Constrained Random Verification</p>
+
+<p>► Scoreboards & Reference Models</p>
+
+<p>► SystemVerilog Assertions (SVA)</p>
+
+</div>
+
+</div>
+
+<!-- AI -->
+
+<div
+class="glass-panel neon-border rounded-3xl p-8 hover:-translate-y-3 transition-all duration-500 relative overflow-hidden">
+
+<div
+class="absolute -right-10 -bottom-10 text-[10rem] opacity-5 font-black">
+
+AI
+
+</div>
+
+<div class="tech-mono text-emerald-400 text-xs mb-8">
+SUBSYSTEM_03
+</div>
+
+<h3
+class="text-3xl font-bold text-white mb-8">
+
+Automation & AI
+
+</h3>
+
+<div class="space-y-4">
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+Python Automation
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+Regression Automation
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+Claude AI Integration
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+Coverage Analytics
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+Log Parsing Frameworks
+
+</div>
+
+<div
+class="bg-black/30 border border-emerald-500/10 p-4 rounded-xl">
+
+SVA Auto Generation
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- VERIFICATION DASHBOARD -->
+<!-- ========================================= -->
+
+<section
+class="py-32 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-20">
+
+<p class="tech-mono text-xs text-emerald-400 tracking-[4px]">
+ // LIVE_VERIFICATION_STATUS
+</p>
+
+<h2 class="text-5xl md:text-7xl font-black mt-4">
+
+REGRESSION
+
+<span class="text-emerald-400 neon-glow">
+DASHBOARD
+</span>
+
+</h2>
+
+</div>
+
+<div
+class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+<div
+class="glass-panel rounded-3xl p-10 text-center">
+
+<div
+class="counter text-6xl font-black text-emerald-400"
+data-target="100">
+
+0
+
+</div>
+
+<p class="mt-4 tech-mono text-gray-400">
+COVERAGE %
+</p>
+
+</div>
+
+<div
+class="glass-panel rounded-3xl p-10 text-center">
+
+<div
+class="counter text-6xl font-black text-emerald-400"
+data-target="5000">
+
+0
+
+</div>
+
+<p class="mt-4 tech-mono text-gray-400">
+TESTCASES
+</p>
+
+</div>
+
+<div
+class="glass-panel rounded-3xl p-10 text-center">
+
+<div
+class="counter text-6xl font-black text-emerald-400"
+data-target="250">
+
+0
+
+</div>
+
+<p class="mt-4 tech-mono text-gray-400">
+REGRESSIONS
+</p>
+
+</div>
+
+<div
+class="glass-panel rounded-3xl p-10 text-center">
+
+<div
+class="counter text-6xl font-black text-emerald-400"
+data-target="0">
+
+0
+
+</div>
+
+<p class="mt-4 tech-mono text-gray-400">
+FAILURES
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- TECHNOLOGY MATRIX -->
+<!-- ========================================= -->
+
+<section
+class="py-24 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div
+class="glass-panel rounded-3xl p-10">
+
+<h3
+class="text-4xl md:text-5xl font-black mb-12">
+
+TECHNOLOGY
+
+<span class="text-emerald-400">
+MATRIX
+</span>
+
+</h3>
+
+<div
+class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+SystemVerilog
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+UVM
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+UVM-RAL
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+SVA
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+AXI4
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+AHB
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+APB
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+DMA Verification
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+Python
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+Linux
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+Git
+</div>
+
+<div class="bg-black/30 p-5 rounded-xl border border-emerald-500/10">
+Claude AI
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+///part 3 
+////
+/////
+<!-- ========================================= -->
+<!-- CAREER TIMELINE -->
+<!-- ========================================= -->
+
+<section id="experience"
+class="py-32 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-20">
+
+<p class="tech-mono text-xs text-emerald-400 tracking-[4px]">
+ // CAREER_EXECUTION_PATH
+</p>
+
+<h2 class="text-5xl md:text-7xl font-black mt-4">
+
+CAREER
+
+<span class="text-emerald-400 neon-glow">
+TIMELINE
+</span>
+
+</h2>
+
+</div>
+
+<div class="relative">
+
+<div
+class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px]
+bg-gradient-to-b from-emerald-400 via-emerald-500 to-transparent">
+</div>
+
+<!-- TIMELINE ITEM 1 -->
+
+<div
+class="timeline-item relative flex flex-col md:flex-row items-center mb-24">
+
+<div
+class="absolute left-1 md:left-1/2 md:-translate-x-1/2 w-6 h-6 rounded-full bg-emerald-400 shadow-[0_0_20px_#10b981]">
+</div>
+
+<div class="md:w-1/2 md:pr-16 pl-12">
+
+<div class="glass-panel rounded-3xl p-8">
+
+<h3 class="text-3xl font-bold">
+Design Verification Engineer
+</h3>
+
+<h4 class="text-emerald-400 mt-2">
+2024 – Present
+</h4>
+
+<p class="mt-4 text-gray-400">
+
+Developing reusable UVM verification environments,
+executing protocol and register-level verification,
+implementing scoreboards, assertions and coverage
+models for complex semiconductor IPs.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TIMELINE ITEM 2 -->
+
+<div
+class="timeline-item relative flex flex-col md:flex-row-reverse items-center mb-24">
+
+<div
+class="absolute left-1 md:left-1/2 md:-translate-x-1/2 w-6 h-6 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee]">
+</div>
+
+<div class="md:w-1/2 md:pl-16 pl-12">
+
+<div class="glass-panel rounded-3xl p-8">
+
+<h3 class="text-3xl font-bold">
+UVM RAL Verification
+</h3>
+
+<h4 class="text-cyan-400 mt-2">
+Register Abstraction Layer
+</h4>
+
+<p class="mt-4 text-gray-400">
+
+Implemented APB register verification using
+UVM-RAL including register modeling, prediction,
+frontdoor and backdoor validation.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TIMELINE ITEM 3 -->
+
+<div
+class="timeline-item relative flex flex-col md:flex-row items-center">
+
+<div
+class="absolute left-1 md:left-1/2 md:-translate-x-1/2 w-6 h-6 rounded-full bg-yellow-400 shadow-[0_0_20px_#facc15]">
+</div>
+
+<div class="md:w-1/2 md:pr-16 pl-12">
+
+<div class="glass-panel rounded-3xl p-8">
+
+<h3 class="text-3xl font-bold">
+AI Verification Framework
+</h3>
+
+<h4 class="text-yellow-400 mt-2">
+Claude AI + Python + UVM
+</h4>
+
+<p class="mt-4 text-gray-400">
+
+Built AI-assisted verification solutions for
+DMA IP validation, regression analytics,
+coverage closure and intelligent debug flows.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FEATURED PROJECTS -->
+<!-- ========================================= -->
+
+<section id="projects"
+class="py-32 px-6">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-20">
+
+<p class="tech-mono text-xs text-emerald-400 tracking-[4px]">
+ // FEATURED_VERIFICATION_PROJECTS
+</p>
+
+<h2 class="text-5xl md:text-7xl font-black mt-4">
+
+FEATURED
+
+<span class="text-emerald-400 neon-glow">
+PROJECTS
+</span>
+
+</h2>
+
+</div>
+
+<div class="grid lg:grid-cols-2 gap-8">
+
+<!-- PROJECT 1 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-emerald-400 tech-mono text-xs mb-4">
+PROJECT_01
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+AI-Integrated DMA Verification Framework
+</h3>
+
+<p class="text-gray-400">
+
+Engineered an AI-driven verification framework
+leveraging Claude AI, SystemVerilog, UVM and Python
+to validate DMA IP functionality, interrupt handling
+and multi-interface data transfers.
+
+</p>
+
+</div>
+
+<!-- PROJECT 2 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-cyan-400 tech-mono text-xs mb-4">
+PROJECT_02
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+Regression-Aware Check-In Automation
+</h3>
+
+<p class="text-gray-400">
+
+Architected a regression-aware automation framework
+integrating DesignSync and Cadence vManager to
+enforce regression quality gates and improve
+repository stability.
+
+</p>
+
+</div>
+
+<!-- PROJECT 3 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-yellow-400 tech-mono text-xs mb-4">
+PROJECT_03
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+Automated SVA Generation Engine
+</h3>
+
+<p class="text-gray-400">
+
+Designed and implemented a Python-based
+SystemVerilog Assertion generation engine that
+converts Excel verification specifications into
+reusable assertion checkers.
+
+</p>
+
+</div>
+
+<!-- PROJECT 4 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-purple-400 tech-mono text-xs mb-4">
+PROJECT_04
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+AI-Assisted Coverage Closure Framework
+</h3>
+
+<p class="text-gray-400">
+
+Utilized Generative AI to identify functional
+coverage gaps and generate optimized directed
+UVM scenarios for accelerated coverage closure.
+
+</p>
+
+</div>
+
+<!-- PROJECT 5 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-pink-400 tech-mono text-xs mb-4">
+PROJECT_05
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+APB Register Verification using UVM-RAL
+</h3>
+
+<p class="text-gray-400">
+
+Implemented register modeling, field configuration,
+access policies, frontdoor/backdoor validation,
+prediction mechanisms and register coverage.
+
+</p>
+
+</div>
+
+<!-- PROJECT 6 -->
+
+<div class="glass-panel rounded-3xl p-8">
+
+<div class="text-orange-400 tech-mono text-xs mb-4">
+PROJECT_06
+</div>
+
+<h3 class="text-3xl font-bold mb-4">
+Reusable UVM Verification Environment
+</h3>
+
+<p class="text-gray-400">
+
+Developed reusable sequencers, drivers, monitors,
+agents, scoreboards and coverage collectors
+supporting constrained-random verification.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SILICON SIGNOFF -->
+<!-- ========================================= -->
+
+<section
+class="min-h-screen flex items-center justify-center px-6">
+
+<div
+class="glass-panel rounded-[40px] p-16 max-w-6xl w-full text-center">
+
+<div
+class="w-32 h-32 mx-auto rounded-full border-4 border-emerald-400 flex items-center justify-center mb-10">
+
+<span class="text-6xl text-emerald-400">
+✓
+</span>
+
+</div>
+
+<p class="tech-mono text-emerald-400 tracking-[5px]">
+FINAL_VERIFICATION_REPORT
+</p>
+
+<h2
+class="text-6xl md:text-8xl font-black mt-8">
+
+TEST
+
+<span class="text-emerald-400 neon-glow">
+PASSED
+</span>
+
+</h2>
+
+<p
+class="text-gray-400 mt-10 max-w-3xl mx-auto text-lg">
+
+Verification environment successfully executed.
+Coverage goals achieved.
+Assertions passed.
+Regression completed.
+
+Ready for tapeout and silicon signoff.
+
+</p>
+
+<div
+class="grid md:grid-cols-4 gap-6 mt-16">
+
+<div class="glass-panel p-6 rounded-2xl">
+
+<div class="text-4xl font-black text-emerald-400">
+100%
+</div>
+
+<p class="tech-mono text-xs mt-2">
+FUNCTIONAL COVERAGE
+</p>
+
+</div>
+
+<div class="glass-panel p-6 rounded-2xl">
+
+<div class="text-4xl font-black text-emerald-400">
+0
+</div>
+
+<p class="tech-mono text-xs mt-2">
+ASSERTION FAILURES
+</p>
+
+</div>
+
+<div class="glass-panel p-6 rounded-2xl">
+
+<div class="text-4xl font-black text-emerald-400">
+5000+
+</div>
+
+<p class="tech-mono text-xs mt-2">
+TEST CASES
+</p>
+
+</div>
+
+<div class="glass-panel p-6 rounded-2xl">
+
+<div class="text-4xl font-black text-emerald-400">
+PASS
+</div>
+
+<p class="tech-mono text-xs mt-2">
+TAPEOUT STATUS
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer
+class="py-12 border-t border-emerald-500/10">
+
+<div
+class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+
+<div
+class="tech-mono text-xs text-emerald-500/60">
+
+VEEKSHITH_S_SHETTY © 2026
+
+</div>
+
+<div
+class="tech-mono text-xs text-emerald-500/60">
+
+SYSTEMVERILOG • UVM • UVM-RAL • SVA • AXI • AHB • APB • PYTHON • AI
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- MATRIX DIGITAL RAIN -->
+<!-- ========================================= -->
+
+<div
+id="matrixRain"
+class="fixed inset-0 pointer-events-none z-[1] opacity-10 overflow-hidden">
+</div>
+
+<!-- ========================================= -->
+<!-- THREE.JS PARTICLE ENGINE -->
+<!-- ========================================= -->
+
+<script>
+
+const scene =
+new THREE.Scene();
+
+const camera =
+new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+const renderer =
+new THREE.WebGLRenderer({
+canvas:document.getElementById('threeCanvas'),
+alpha:true,
+antialias:true
+});
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
+
+renderer.setPixelRatio(
+window.devicePixelRatio
+);
+
+camera.position.z = 35;
+
+/* PARTICLE CLOUD */
+
+const particleCount = 4000;
+
+const geometry =
+new THREE.BufferGeometry();
+
+const positions =
+new Float32Array(
+particleCount * 3
+);
+
+for(let i=0;i<particleCount*3;i++)
+{
+positions[i] =
+(Math.random()-0.5)*300;
+}
+
+geometry.setAttribute(
+'position',
+new THREE.BufferAttribute(
+positions,
+3
+)
+);
+
+const material =
+new THREE.PointsMaterial({
+
+color:0x10b981,
+
+size:0.25,
+
+transparent:true,
+
+opacity:0.8
+
+});
+
+const particles =
+new THREE.Points(
+geometry,
+material
+);
+
+scene.add(
+particles
+);
+
+function animate()
+{
+requestAnimationFrame(
+animate
+);
+
+particles.rotation.y += 0.0008;
+
+particles.rotation.x += 0.0003;
+
+renderer.render(
+scene,
+camera
+);
+}
+
+animate();
+
+/* RESIZE */
+
+window.addEventListener(
+'resize',
+()=>{
+
+camera.aspect =
+window.innerWidth/
+window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
+
+}
+);
+
+</script>
+
+<!-- ========================================= -->
+<!-- MATRIX RAIN EFFECT -->
+<!-- ========================================= -->
+
+<script>
+
+const matrixContainer =
+document.getElementById(
+"matrixRain"
+);
+
+for(let i=0;i<80;i++)
+{
+
+const column =
+document.createElement(
+"div"
+);
+
+column.innerText =
+Math.random()
+.toString(2)
+.repeat(20);
+
+column.style.position =
+"absolute";
+
+column.style.left =
+Math.random()*100+"%";
+
+column.style.top =
+"-200px";
+
+column.style.color =
+"#10b981";
+
+column.style.fontSize =
+"10px";
+
+column.style.fontFamily =
+"monospace";
+
+matrixContainer.appendChild(
+column
+);
+
+gsap.to(
+column,
+{
+y:window.innerHeight+500,
+repeat:-1,
+duration:
+5+Math.random()*10,
+ease:"none"
+}
+);
+
+}
+
+</script>
+
+<!-- ========================================= -->
+<!-- BOOT LOADER ANIMATION -->
+<!-- ========================================= -->
+
+<script>
+
+const bootTimeline =
+gsap.timeline();
+
+bootTimeline
+
+.to(
+"#log2",
+{
+opacity:1,
+duration:0.3
+}
+)
+
+.to(
+"#progressBar",
+{
+width:"20%",
+duration:0.4
+}
+)
+
+.to(
+"#log3",
+{
+opacity:1,
+duration:0.3
+}
+)
+
+.to(
+"#progressBar",
+{
+width:"40%",
+duration:0.4
+}
+)
+
+.to(
+"#log4",
+{
+opacity:1,
+duration:0.3
+}
+)
+
+.to(
+"#progressBar",
+{
+width:"60%",
+duration:0.4
+}
+)
+
+.to(
+"#log5",
+{
+opacity:1,
+duration:0.3
+}
+)
+
+.to(
+"#progressBar",
+{
+width:"80%",
+duration:0.4
+}
+)
+
+.to(
+"#log6",
+{
+opacity:1,
+duration:0.3
+}
+)
+
+.to(
+"#progressBar",
+{
+width:"100%",
+duration:0.5
+}
+)
+
+.to(
+"#enterBtn",
+{
+opacity:1,
+duration:0.5
+}
+);
+
+document
+.getElementById(
+"enterBtn"
+)
+.addEventListener(
+"click",
+()=>{
+
+gsap.to(
+"#bootScreen",
+{
+opacity:0,
+duration:1,
+onComplete:()=>{
+
+document
+.getElementById(
+"bootScreen"
+)
+.style.display =
+"none";
+
+document.body.classList.remove(
+"loading"
+);
+
+heroAnimation();
+
+}
+}
+);
+
+}
+);
+
+</script>
+
+<!-- ========================================= -->
+<!-- HERO INTRO ANIMATION -->
+<!-- ========================================= -->
+
+<script>
+
+function heroAnimation()
+{
+
+gsap.to(
+"#heroTitle",
+{
+opacity:1,
+y:-20,
+duration:1.2
+}
+);
+
+gsap.to(
+"#heroDesc",
+{
+opacity:1,
+y:-10,
+delay:0.5,
+duration:1
+}
+);
+
+gsap.to(
+"#heroButtons",
+{
+opacity:1,
+delay:1,
+duration:1
+}
+);
+
+}
+
+</script>
+
+<!-- ========================================= -->
+<!-- GSAP SCROLL ANIMATIONS -->
+<!-- ========================================= -->
+
+<script>
+
+gsap.registerPlugin(
+ScrollTrigger
+);
+
+gsap.utils.toArray(
+'.glass-panel'
+).forEach(
+panel=>{
+
+gsap.from(
+panel,
+{
+opacity:0,
+y:60,
+duration:1,
+scrollTrigger:{
+trigger:panel,
+start:"top 85%"
+}
+}
+);
+
+}
+);
+
+gsap.utils.toArray(
+'.timeline-item'
+).forEach(
+item=>{
+
+gsap.from(
+item,
+{
+opacity:0,
+x:-100,
+duration:1,
+scrollTrigger:{
+trigger:item,
+start:"top 80%"
+}
+}
+);
+
+}
+);
+
+</script>
+
+<!-- ========================================= -->
+<!-- COUNTER ANIMATION -->
+<!-- ========================================= -->
+
+<script>
+
+const counters =
+document.querySelectorAll(
+'.counter'
+);
+
+function runCounter(
+counter
+)
+{
+
+const target =
++counter.dataset.target;
+
+let current = 0;
+
+const increment =
+target/100;
+
+function update()
+{
+
+current += increment;
+
+if(current < target)
+{
+
+counter.innerText =
+Math.floor(current);
+
+requestAnimationFrame(
+update
+);
+
+}
+else
+{
+
+counter.innerText =
+target;
+
+}
+
+}
+
+update();
+
+}
+
+ScrollTrigger.create({
+
+trigger:".counter",
+
+start:"top 80%",
+
+once:true,
+
+onEnter:()=>{
+
+counters.forEach(
+counter=>{
+runCounter(counter);
+}
+);
+
+}
+
+});
+
+</script>
+
+<!-- ========================================= -->
+<!-- MOUSE PARALLAX EFFECT -->
+<!-- ========================================= -->
+
+<script>
+
+document.addEventListener(
+'mousemove',
+(e)=>{
+
+const x =
+(e.clientX/window.innerWidth)-0.5;
+
+const y =
+(e.clientY/window.innerHeight)-0.5;
+
+gsap.to(
+particles.rotation,
+{
+y:x*0.6,
+x:y*0.6,
+duration:2
+}
+);
+
+}
+);
+
+</script>
+
+</body>
+
+</html>
